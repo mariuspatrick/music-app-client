@@ -1,38 +1,57 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchedPlaylist } from "../artists/actions";
+import { fetchedPlaylist } from "../playlist/actions";
 
 class Homepage extends Component {
   state = {
     genre: ""
   };
 
-  componentDidMount() {
-    this.props.dispatch(fetchedPlaylist);
-  }
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    const action = fetchedPlaylist(this.state.genre);
+
+    this.props.dispatch(action);
+  };
 
   render() {
-    const loading = !this.props.artist;
+    console.log("this.props", this.props);
+    const playlists = !this.props.tracks;
     return (
       <div>
-        {!loading && (
-          <h3>Number of tracks on page: {this.props.artist.tracks.length}</h3>
-        )}
-        {loading ? (
-          <h1>Loading...</h1>
+        {playlists ? (
+          <form onSubmit={this.handleSubmit}>
+            Genre:
+            <p>
+              <input
+                type="text"
+                name="genre"
+                value={this.state.genre}
+                onChange={this.handleChange}
+              />
+            </p>
+            <button type="submit">Searchie Search</button>
+          </form>
         ) : (
-          this.props.artist.tracks.map(track => {
+          this.props.tracks.playlists.items.map(tracks => {
             return (
-              <div key={track.id} onClick={this.clickMe}>
-                <p>Track: {track.name}</p>
-
-                {track.artists.map(artist => {
-                  return <p>Artist: {artist.name}</p>;
-                })}
-                {/* <button>Add</button> */}
+              <div style={{ border: "solid 5px" }}>
+                <h4>{tracks.name}</h4>
+                <p>{tracks.description}</p>
+                {tracks &&
+                  tracks.images.map(image => {
+                    return <img src={image.url}></img>;
+                  })}
               </div>
             );
           })
+          //   this.props.tracks.playlists.
         )}
       </div>
     );
@@ -40,9 +59,9 @@ class Homepage extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log("reduxState in homepage", state.artist);
+  console.log("reduxState in homepage", state.playlist);
   return {
-    artist: state.artist
+    tracks: state.playlist
   };
 }
 
