@@ -1,21 +1,37 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchedArtists } from "../artists/actions";
+import { fetchedPlaylist } from "../artists/actions";
 
 class Homepage extends Component {
+  state = {
+    genre: ""
+  };
+
   componentDidMount() {
-    console.log("this props in Homepage:", this.props);
-    this.props.dispatch(fetchedArtists);
+    this.props.dispatch(fetchedPlaylist);
   }
+
   render() {
     const loading = !this.props.artist;
     return (
       <div>
+        {!loading && (
+          <h3>Number of tracks on page: {this.props.artist.tracks.length}</h3>
+        )}
         {loading ? (
           <h1>Loading...</h1>
         ) : (
-          this.props.artist.tracks.map(artist => {
-            return <h1>Name: {artist.name}</h1>;
+          this.props.artist.tracks.map(track => {
+            return (
+              <div key={track.id} onClick={this.clickMe}>
+                <p>Track: {track.name}</p>
+
+                {track.artists.map(artist => {
+                  return <p>Artist: {artist.name}</p>;
+                })}
+                {/* <button>Add</button> */}
+              </div>
+            );
           })
         )}
       </div>
@@ -24,7 +40,7 @@ class Homepage extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log("state in homepage", state.artist);
+  console.log("reduxState in homepage", state.artist);
   return {
     artist: state.artist
   };
