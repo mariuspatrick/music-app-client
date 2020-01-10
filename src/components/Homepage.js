@@ -1,21 +1,55 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchedArtists } from "../artists/actions";
+import { fetchedPlaylist } from "../playlist/actions";
 
 class Homepage extends Component {
-  componentDidMount() {
-    console.log("this props in Homepage:", this.props);
-    this.props.dispatch(fetchedArtists);
-  }
+  state = {
+    genre: ""
+  };
+
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    const action = fetchedPlaylist(this.state.genre);
+
+    this.props.dispatch(action);
+  };
+
   render() {
-    const loading = !this.props.artist;
+    console.log("this.props", this.props);
+    const playlists = !this.props.tracks;
     return (
       <div>
-        {loading ? (
-          <h1>Loading...</h1>
+        {playlists ? (
+          <form onSubmit={this.handleSubmit}>
+            Genre:
+            <p>
+              <input
+                type="text"
+                name="genre"
+                value={this.state.genre}
+                onChange={this.handleChange}
+              />
+            </p>
+            <button type="submit">Searchie Search</button>
+          </form>
         ) : (
-          this.props.artist.tracks.map(artist => {
-            return <h1>Name: {artist.name}</h1>;
+          this.props.tracks.playlists.items.map(tracks => {
+            return (
+              <div style={{ border: "solid 5px" }}>
+                <h4>{tracks.name}</h4>
+                <p>{tracks.description}</p>
+                {tracks &&
+                  tracks.images.map(image => {
+                    return <img src={image.url}></img>;
+                  })}
+              </div>
+            );
           })
         )}
       </div>
@@ -24,9 +58,9 @@ class Homepage extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log("state in homepage", state.artist);
+  console.log("reduxState in homepage", state.playlist);
   return {
-    artist: state.artist
+    tracks: state.playlist
   };
 }
 
