@@ -1,12 +1,11 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
-class List extends Component {
-  state = {
-    playlist: []
-  };
+class Tracks extends Component {
+  componentDidMount() {}
   render() {
-    return <div></div>;
+    return <div>Ahoy Matey! I am a pirate aarghh! Wooden leg pirate stuff</div>;
   }
 }
 
-export default List;
+export default connect()(Tracks);

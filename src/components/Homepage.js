@@ -44,6 +44,7 @@ class Homepage extends Component {
               <div style={{ border: "solid 5px" }}>
                 <h4>{tracks.name}</h4>
                 <p>{tracks.description}</p>
+                {/* Map over images array to get image for each playlist */}
                 {tracks &&
                   tracks.images.map(image => {
                     return <img src={image.url}></img>;
@@ -58,7 +59,6 @@ class Homepage extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log("reduxState in homepage", state.playlist);
   return {
     tracks: state.playlist
   };
