@@ -1,9 +1,10 @@
 import api from "../api";
 
 function tracksFetched(data) {
+  console.log("data in tracks actions: ", data);
   return {
     type: "TRACKS_FETCHED",
-    payload: data.body
+    payload: data.tracks
   };
 }
 

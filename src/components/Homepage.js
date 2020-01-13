@@ -21,7 +21,7 @@ class Homepage extends Component {
   };
 
   render() {
-    console.log("this.props", this.props);
+    console.log("this.props", this.props.tracks);
     const playlists = !this.props.tracks;
     return (
       <div>
@@ -41,7 +41,12 @@ class Homepage extends Component {
         ) : (
           this.props.tracks.playlists.items.map(tracks => {
             return (
-              <div style={{ border: "solid 5px" }}>
+              <div
+                style={{ border: "solid 5px" }}
+                onClick={() => {
+                  this.props.history.push(`/${tracks.id}`);
+                }}
+              >
                 <h4>{tracks.name}</h4>
                 <p>{tracks.description}</p>
                 {/* Map over images array to get image for each playlist */}
@@ -53,6 +58,15 @@ class Homepage extends Component {
             );
           })
         )}
+        {/* {!playlists && (
+          <button
+            onClick={() => {
+              
+            }}
+          >
+            BIG
+          </button>
+        )} */}
       </div>
     );
   }
