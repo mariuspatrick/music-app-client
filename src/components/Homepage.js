@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchedPlaylist } from "../playlist/actions";
 import Button from "@material-ui/core/Button";
+import { fetchedPlaylist } from "../playlist/actions";
 
 class Homepage extends Component {
   state = {
@@ -16,79 +16,91 @@ class Homepage extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+
     const action = fetchedPlaylist(this.state.genre);
 
     this.props.dispatch(action);
+    // this.props.history.push("/playlists");
   };
 
   render() {
-    console.log("this.props", this.props.tracks);
-    const playlists = !this.props.tracks;
-    const auth = !this.props.auth;
+    console.log("this.props in home", this.props);
+
+    const auth = this.props.auth;
     return (
       <div>
-        <p></p>
-        {playlists ? (
-          <form onSubmit={this.handleSubmit}>
-            <p>
-              <Button
-                // variant="contained"
-                // color="primary"
-                // disableElevation
-                onClick={() => this.props.history.push("/playlist")}
-              >
-                {/* <Link to="/playlist">
-                      <button>Create playlist</button>
-                    </Link> */}
-                Create Playlist
-              </Button>
-            </p>
-            Genre:
-            <p>
-              <input
-                type="text"
-                name="genre"
-                value={this.state.genre}
-                onChange={this.handleChange}
-              />
-            </p>
-            <Button
-              onClick={this.handleSubmit}
-              // variant="contained" color="primary" disableElevation
-            >
-              Search
-            </Button>
-          </form>
-        ) : (
+        {auth.jwt ? (
           <div>
-            <h2>Loading...</h2>
+            <h2>Hello {auth.name}</h2>
+
+            {/* <button onClick={() => this.props.history.push("/playlists")}>
+              Search for songs
+            </button> */}
+            <form onSubmit={this.handleSubmit}>
+              <p>
+                <Button
+                  // variant="contained"
+                  // color="primary"
+                  // disableElevation
+                  onClick={() => this.props.history.push("/playlist")}
+                >
+                  Create Playlist
+                </Button>
+              </p>
+              Genre:
+              <p>
+                <input
+                  type="text"
+                  name="genre"
+                  value={this.state.genre}
+                  onChange={this.handleChange}
+                />
+              </p>
+              <Button
+                onClick={this.handleSubmit}
+                // variant="contained" color="primary" disableElevation
+              >
+                Search
+              </Button>
+            </form>
           </div>
-          // this.props.tracks.playlists.items.map(tracks => {
-          //   return (
-          //     <div
-          //       style={{
-          //         border: "solid 5px",
-          //         // transitionProperty: "all",
-          //         // transitionDuration: "3s",
-          //         transition:
-          //           "width 2s, height 2s, backround-color 2s, transform 2s"
-          //       }}
-          //       onClick={() => {
-          //         this.props.history.push(`/genres/${tracks.id}`);
-          //       }}
+        ) : (
+          // <form onSubmit={this.handleSubmit}>
+          //   <p>
+          //     <Button
+          //       // variant="contained"
+          //       // color="primary"
+          //       // disableElevation
+          //       onClick={() => this.props.history.push("/playlist")}
           //     >
-          //       <h4>{tracks.name}</h4>
-          //       <p>{tracks.description}</p>
-
-          //       {/* Map over images array to get image for each playlist */}
-
-          //       {tracks &&
-          //         tracks.images.map(image => {
-          //           return <img src={image.url}></img>;
-          //         })}
-          //     </div>
-          //   );
-          // })
+          //       {/* <Link to="/playlist">
+          //             <button>Create playlist</button>
+          //           </Link> */}
+          //       Create Playlist
+          //     </Button>
+          //   </p>
+          //   Genre:
+          //   <p>
+          //     <input
+          //       type="text"
+          //       name="genre"
+          //       value={this.state.genre}
+          //       onChange={this.handleChange}
+          //     />
+          //   </p>
+          //   <Button
+          //     onClick={this.handleSubmit}
+          //     // variant="contained" color="primary" disableElevation
+          //   >
+          //     Search
+          //   </Button>
+          // </form>
+          <div>
+            <h2>LogIn to search for songs</h2>
+            <Button onClick={() => this.props.history.push("/login")}>
+              Log In
+            </Button>
+          </div>
         )}
         {/* {!playlists && (
           <button

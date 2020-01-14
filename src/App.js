@@ -6,6 +6,7 @@ import Tracks from "./components/Tracks";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Toolbar from "./components/Toolbar";
+import Search from "./components/Search";
 import CreatePLaylist from "./components/CreatePlaylist";
 import { userLoggedIn } from "./signup/actions";
 import { connect } from "react-redux";
@@ -25,6 +26,7 @@ class App extends Component {
         <Switch>
           <header className="App-header">
             <Route exact path="/" component={Homepage} />
+            <Route exact path="/playlists" component={Search} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/playlist" component={CreatePLaylist} />

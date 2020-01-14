@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { login } from "../signup/actions";
-import { Link } from "react-router-dom";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 class LoginPage extends React.Component {
   state = {
@@ -36,7 +37,7 @@ class LoginPage extends React.Component {
           <h1>Hello {this.props.data.name} </h1>
           <h3>You have succesfully logged in!</h3>
           <nav>
-            <Link to="/">Home</Link>
+            <Button onClick={() => this.props.history.push("/")}>Home</Button>
           </nav>
         </div>
       );
@@ -46,25 +47,29 @@ class LoginPage extends React.Component {
         <h1>Login here!</h1>
         <form onSubmit={this.handleSubmit}>
           <p>
-            <input
-              type="email"
-              placeholder="E-mail"
+            <TextField
+              id="outlined-basic"
               name="email"
+              label="E-mail"
+              variant="outlined"
               value={this.state.email}
               onChange={this.handleChange}
             />
           </p>
+          <TextField
+            id="outlined-basic"
+            type="password"
+            name="password"
+            label="Password"
+            variant="outlined"
+            value={this.state.password}
+            onChange={this.handleChange}
+          />
           <p>
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
-          </p>
-          <p>
-            <button type="submit">Login</button>
+            {/* <button type="submit">Login</button> */}
+            <Button variant="contained" type="submit">
+              Login
+            </Button>
           </p>
         </form>
         <div>

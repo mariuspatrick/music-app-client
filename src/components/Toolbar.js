@@ -26,14 +26,17 @@ class Toolbar extends Component {
             {/* onClick={() => this.props.history.push("/login")} */}
             <Link to="/login">Login</Link>
           </Button>
-          <Button onClick={() => this.props.dispatch(userLoggedOut())}>
-            Logout
-          </Button>
           <Button>
             <Link to="/signup">Signup</Link>
           </Button>
           <Button>
             <Link to="/">Home</Link>
+          </Button>
+          <Button
+            style={{ alignItems: "left" }}
+            onClick={() => this.props.dispatch(userLoggedOut())}
+          >
+            Logout
           </Button>
         </ButtonGroup>
         {/* <ButtonGroup

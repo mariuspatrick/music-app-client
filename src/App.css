@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  height: 200px;
 }
 
 .App-logo {
@@ -14,8 +15,11 @@
 }
 
 .App-header {
+  background-image: url("https://images.pexels.com/photos/6319/smartphone-vintage-technology-music.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
   background-color: white;
+  image-resolution: 720dpi;
   min-height: 100vh;
+  /* max-width: 10000px; */
   display: flex;
   flex-direction: column;
   align-items: center;
