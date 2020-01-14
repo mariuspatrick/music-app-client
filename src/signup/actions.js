@@ -7,6 +7,12 @@ export function userLoggedIn(jwt, name, id) {
   };
 }
 
+export function userLoggedOut() {
+  return {
+    type: "USER_LOGGED_OUT"
+  };
+}
+
 export function login(email, password) {
   return function thunk(dispatch, getState) {
     api("/login", {
@@ -17,6 +23,9 @@ export function login(email, password) {
       }
     })
       .then(data => {
+        localStorage.setItem("jwt", data.jwt);
+        localStorage.setItem("name", data.name);
+        localStorage.setItem("id", data.id);
         dispatch(userLoggedIn(data.jwt, data.name, data.id));
       })
       .catch(err => console.log("Error!", err));

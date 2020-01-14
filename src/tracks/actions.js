@@ -16,12 +16,12 @@ export function fetchedTracks(playlistId) {
   };
 }
 
-function sendTracks(data) {
-  return {
-    type: "SEND_TRACKS",
-    payload: data.tracks
-  };
-}
+// function sendTracks(data) {
+//   return {
+//     type: "SEND_TRACKS",
+//     payload: data.tracks
+//   };
+// }
 
 // export function sendTracks(trackId) {
 //   return function thunk(dispatch, getState) {

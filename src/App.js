@@ -7,8 +7,17 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Toolbar from "./components/Toolbar";
 import CreatePLaylist from "./components/CreatePlaylist";
+import { userLoggedIn } from "./signup/actions";
+import { connect } from "react-redux";
 
 class App extends Component {
+  componentDidMount() {
+    const jwt = localStorage.getItem("jwt");
+    const name = localStorage.getItem("name");
+    const id = localStorage.getItem("id");
+
+    if (jwt) this.props.dispatch(userLoggedIn(jwt, name, id));
+  }
   render() {
     return (
       <div className="App">
@@ -27,4 +36,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect()(App);

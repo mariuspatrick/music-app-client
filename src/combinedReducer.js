@@ -8,5 +8,6 @@ export default combineReducers({
   playlist: playlistReducer,
   tracks: tracksReducer,
   auth: signupReducer,
-  newPlaylist: newPlaylistReducer
+  newPlaylistCreate: newPlaylistReducer,
+  getNewPlaylist: newPlaylistReducer
 });

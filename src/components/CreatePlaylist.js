@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createNewPlaylist } from "../user_playlist/actions";
+import { getNewUserPlaylist } from "../user_playlist/actions";
+import Button from "@material-ui/core/Button";
 
 class CreatePlaylist extends Component {
   state = {
@@ -20,6 +22,7 @@ class CreatePlaylist extends Component {
     const action = createNewPlaylist(this.state.playlistName, jwt);
 
     this.props.dispatch(action);
+    // if(this.props.)
   };
 
   render() {
@@ -27,7 +30,8 @@ class CreatePlaylist extends Component {
       <div>
         <h2>Create your playlist: </h2>
         <form onSubmit={this.handleSubmit}>
-          Playlist name:
+          Pick a name:
+          <p></p>
           <input
             type="text"
             name="playlistName"
@@ -35,13 +39,22 @@ class CreatePlaylist extends Component {
             onChange={this.handleChange}
           />
         </form>
+        {this.props.auth.jwt && (
+          <Button
+            onClick={() =>
+              this.props.dispatch(getNewUserPlaylist(this.props.auth.jwt))
+            }
+          >
+            Show playlist
+          </Button>
+        )}
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  console.log("reduxState in createPlaylist.js", state.auth);
+  console.log("reduxState in createPlaylist.js", state);
   return {
     auth: state.auth
   };
