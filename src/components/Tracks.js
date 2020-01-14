@@ -1,40 +1,33 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchedTracks } from "../tracks/actions";
+import CheckBox from "./Checkbox";
 
 class Tracks extends Component {
   state = {
-    checked: false
+    playlistTracks: []
   };
-
-  Checkbox = props => {
-    return <input type="checkbox" {...props} />;
-  };
-
-  handleCheckBoxChange = event => {
-    // Find a way to select divs individually
-    this.setState({ checked: event.target.checked });
-  };
-
   componentDidMount() {
-    const id = this.props.match.params.playlistId;
+    const id = this.props.match.params.tracksId;
+
+    console.log("this.props in tracks.js: ", this.props);
     this.props.dispatch(fetchedTracks(id));
   }
+
+  trackId = track => {
+    // console.log("track id ", track.track.id);
+    const id = track.track.id;
+
+    this.state.playlistTracks.push(id);
+  };
+
   render() {
     console.log("this.props.tracks: ", this.props.tracks);
-    const loading = !this.props.tracks;
+    let loading = !this.props.tracks;
 
+    // Filters out tracks that are null
     const sortTracks = track => {
-      // Filters out tracks that are null
       if (track.track) return track.track.name;
-    };
-
-    const getArtistsName = track => {
-      if (track.track)
-        track.track.artists.map(artist => {
-          console.log("artist.name", artist.name);
-          return artist.name;
-        });
     };
 
     return (
@@ -44,24 +37,22 @@ class Tracks extends Component {
         ) : (
           this.props.tracks.items.map((track, index) => {
             return (
-              <div key={index} style={{ border: "2px solid" }}>
+              <div
+                key={index}
+                style={{ border: "2px solid", borderRadius: "25px" }}
+              >
                 <h4>{sortTracks(track)}</h4>
                 <h5>
                   {track.track &&
                     track.track.artists.map(artist => {
                       return artist.name;
                     })}
-                  {/* {getArtistsName(track)} */}
                 </h5>
-                <label>
-                  <this.Checkbox
-                    checked={this.state.checked}
-                    onChange={this.handleCheckBoxChange}
-                  />
-                </label>
+                {track.track && (
+                  <CheckBox getTrackId={() => this.trackId(track)} />
+                )}
               </div>
             );
-            // }
           })
         )}
       </div>

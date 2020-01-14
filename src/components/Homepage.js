@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchedPlaylist } from "../playlist/actions";
+import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 class Homepage extends Component {
   state = {
@@ -25,39 +27,55 @@ class Homepage extends Component {
     const playlists = !this.props.tracks;
     return (
       <div>
-        {playlists ? (
-          <form onSubmit={this.handleSubmit}>
-            Genre:
-            <p>
-              <input
-                type="text"
-                name="genre"
-                value={this.state.genre}
-                onChange={this.handleChange}
-              />
-            </p>
-            <button type="submit">Searchie Search</button>
-          </form>
-        ) : (
-          this.props.tracks.playlists.items.map(tracks => {
-            return (
-              <div
-                style={{ border: "solid 5px" }}
-                onClick={() => {
-                  this.props.history.push(`/${tracks.id}`);
-                }}
-              >
-                <h4>{tracks.name}</h4>
-                <p>{tracks.description}</p>
-                {/* Map over images array to get image for each playlist */}
-                {tracks &&
-                  tracks.images.map(image => {
-                    return <img src={image.url}></img>;
-                  })}
-              </div>
-            );
-          })
-        )}
+        <p></p>
+        {playlists
+          ? this.props.auth.jwt && (
+              <form onSubmit={this.handleSubmit}>
+                <p>
+                  <Link to="/playlist">
+                    <button>Create playlist</button>
+                  </Link>
+                </p>
+                Genre:
+                <p>
+                  <input
+                    type="text"
+                    name="genre"
+                    value={this.state.genre}
+                    onChange={this.handleChange}
+                  />
+                </p>
+                <Button variant="contained" color="black" disableElevation>
+                  Search
+                </Button>
+              </form>
+            )
+          : this.props.tracks.playlists.items.map(tracks => {
+              return (
+                <div
+                  style={{
+                    border: "solid 5px",
+                    // transitionProperty: "all",
+                    // transitionDuration: "3s",
+                    transition:
+                      "width 2s, height 2s, backround-color 2s, transform 2s"
+                  }}
+                  onClick={() => {
+                    this.props.history.push(`/genres/${tracks.id}`);
+                  }}
+                >
+                  <h4>{tracks.name}</h4>
+                  <p>{tracks.description}</p>
+
+                  {/* Map over images array to get image for each playlist */}
+
+                  {tracks &&
+                    tracks.images.map(image => {
+                      return <img src={image.url}></img>;
+                    })}
+                </div>
+              );
+            })}
         {/* {!playlists && (
           <button
             onClick={() => {
@@ -74,7 +92,8 @@ class Homepage extends Component {
 
 function mapStateToProps(state) {
   return {
-    tracks: state.playlist
+    tracks: state.playlist,
+    auth: state.auth
   };
 }
 
