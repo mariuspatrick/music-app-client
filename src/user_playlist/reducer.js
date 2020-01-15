@@ -1,17 +1,30 @@
-const initialState = null;
+const initialState = {
+  currentPlaylist: null,
+  songsForPlaylist: [],
+  allUsersPlaylists: []
+};
 
 export default function reducer(state = initialState, action) {
-  console.log("action.payload in addEvents reducer", action.payload);
   switch (action.type) {
-    case "CREATE_NEW_PLAYLIST": {
-      return { ...state, playlist: action.payload };
+    case "CREATE_USER_PLAYLIST": {
+      return { ...state, currentPlaylist: action.payload };
     }
-    case "GET_USER_PLAYLIST": {
+    case "SAVE_USER_PLAYLISTS": {
       return {
         ...state,
-        userPlaylist: action.payload
+        allUsersPlaylists: action.payload
       };
     }
+    case "SET_CURRENT_PLAYLIST":
+      return {
+        ...state,
+        currentPlaylist: action.payload //playlistId
+      };
+    case "SET_SONGS_FOR_CURRENT_PLAYLIST":
+      return {
+        ...state,
+        songsForPlaylist: action.payload //playlistId
+      };
     default: {
       return state;
     }

@@ -1,9 +1,8 @@
 import api from "../api";
 
-function tracksFetched(data) {
-  console.log("data in tracks actions: ", data);
+function spotifyTracksFetched(data) {
   return {
-    type: "TRACKS_FETCHED",
+    type: "SPOTIFY_TRACKS_FETCHED",
     payload: data.tracks
   };
 }
@@ -11,20 +10,30 @@ function tracksFetched(data) {
 export function fetchedTracks(playlistId) {
   return function thunk(dispatch, getState) {
     api(`/genres/${playlistId}`).then(tracks => {
-      dispatch(tracksFetched(tracks));
+      dispatch(spotifyTracksFetched(tracks));
     });
   };
 }
 
-// function sendTracks(data) {
-//   return {
-//     type: "SEND_TRACKS",
-//     payload: data.tracks
-//   };
-// }
+function sendNewTracks(data) {
+  return {
+    type: "SET_SONGS_FOR_CURRENT_PLAYLIST",
+    payload: data
+  };
+}
 
-// export function sendTracks(trackId) {
-//   return function thunk(dispatch, getState) {
-//     api(``)
-//   }
-// }
+export function sendTracks(trackId, jwt) {
+  return function thunk(dispatch, getState) {
+    api(`/tracks/:playlistId`, {
+      method: "POST",
+      body: {
+        trackId
+      },
+      jwt
+    })
+      .then(tracks => {
+        dispatch(sendNewTracks(tracks));
+      })
+      .catch(err => console.error(err));
+  };
+}

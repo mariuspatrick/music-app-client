@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { signUp } from "../signup/actions";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 class Signup extends Component {
   state = {
@@ -24,69 +25,59 @@ class Signup extends Component {
   };
 
   render() {
-    // const mystyle = {
-    //   margin: "auto",
-    //   width: "50%",
-    //   border: "3px solid green",
-    //   padding: "10px"
-    // };
-
     if (this.props.data.jwt) {
       return (
         <div>
           <h1>Welcome {this.props.data.name}!</h1>
           <h4>
-            Click to go to homepage: <Link to="/">Home</Link>
+            Click to go to homepage:
+            <p></p>
+            <Button onClick={() => this.props.history.push("/")}>Home</Button>
           </h4>
-          {/* <nav>
-            Already have an account?
-            <br />
-            <Link to="/login">Click here to log in!</Link>
-          </nav> */}
         </div>
       );
     }
-    console.log("props in signup: ", this.props);
     return (
       <div>
         <h1>Signup here!</h1>
         <div>
           <form onSubmit={this.handleSubmit}>
-            <input
+            <TextField
+              id="signupField"
               name="email"
-              placeholder="E-mail"
-              type="email"
-              onChange={this.handleChange}
+              label="E-mail"
+              variant="outlined"
               value={this.state.email}
+              onChange={this.handleChange}
             />
-            <p>
-              <input
-                name="name"
-                placeholder="Username"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.name}
-              />
-            </p>
-            <p>
-              <input
-                name="password"
-                placeholder="Password"
-                type="password"
-                onChange={this.handleChange}
-                value={this.state.password}
-              />
-            </p>
-            <input type="submit" />
             <p></p>
+            <TextField
+              id="loginField"
+              name="name"
+              label="Username"
+              variant="outlined"
+              value={this.state.name}
+              onChange={this.handleChange}
+            />
+            <p></p>
+            <TextField
+              id="passwordField"
+              type="password"
+              name="password"
+              label="Password"
+              variant="outlined"
+              value={this.state.password}
+              onChange={this.handleChange}
+            />
+            <p></p>
+            <Button
+              variant="contained"
+              type="submit"
+              //   onClick={() => this.props.history.push("/")}
+            >
+              Sign Up
+            </Button>
           </form>
-        </div>
-        <div>
-          <nav>
-            Already have an account?
-            <br />
-            <Link to="/login">Click here to log in!</Link>
-          </nav>
         </div>
       </div>
     );

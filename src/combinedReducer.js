@@ -1,13 +1,12 @@
 import { combineReducers } from "redux";
-import playlistReducer from "./playlist/reducer";
+import playlistReducer from "./spotify_playlist/reducer";
 import tracksReducer from "./tracks/reducer";
 import signupReducer from "./signup/reducer";
 import newPlaylistReducer from "./user_playlist/reducer";
 
 export default combineReducers({
-  playlist: playlistReducer,
+  spotifyPlaylists: playlistReducer,
   tracks: tracksReducer,
   auth: signupReducer,
-  newPlaylistCreate: newPlaylistReducer,
-  getNewPlaylist: newPlaylistReducer
+  userPlaylists: newPlaylistReducer
 });

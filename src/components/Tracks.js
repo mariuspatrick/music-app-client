@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchedTracks } from "../tracks/actions";
 import CheckBox from "./Checkbox";
+import { sendTracks } from "../tracks/actions";
+import Button from "@material-ui/core/Button";
 
 class Tracks extends Component {
   state = {
@@ -10,19 +12,16 @@ class Tracks extends Component {
   componentDidMount() {
     const id = this.props.match.params.tracksId;
 
-    console.log("this.props in tracks.js: ", this.props);
     this.props.dispatch(fetchedTracks(id));
   }
 
   trackId = track => {
-    // console.log("track id ", track.track.id);
     const id = track.track.id;
 
     this.state.playlistTracks.push(id);
   };
 
   render() {
-    console.log("this.props.tracks: ", this.props.tracks);
     let loading = !this.props.tracks;
 
     // Filters out tracks that are null
@@ -55,15 +54,24 @@ class Tracks extends Component {
             );
           })
         )}
+        <Button
+          onClick={() => {
+            this.props.dispatch(
+              sendTracks(this.state.playlistTracks, this.props.auth.jwt)
+            );
+          }}
+        >
+          Add
+        </Button>
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  console.log("reduxState in tracks", state);
   return {
-    tracks: state.tracks
+    tracks: state.tracks,
+    auth: state.auth
   };
 }
 

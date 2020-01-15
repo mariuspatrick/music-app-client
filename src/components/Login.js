@@ -48,7 +48,7 @@ class LoginPage extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <p>
             <TextField
-              id="outlined-basic"
+              id="email-text"
               name="email"
               label="E-mail"
               variant="outlined"
@@ -57,7 +57,7 @@ class LoginPage extends React.Component {
             />
           </p>
           <TextField
-            id="outlined-basic"
+            id="password-text"
             type="password"
             name="password"
             label="Password"
@@ -73,10 +73,7 @@ class LoginPage extends React.Component {
           </p>
         </form>
         <div>
-          <nav>
-            {/* Don't have an account? */}
-            <br />
-          </nav>
+          <nav>{/* Don't have an account? */}</nav>
         </div>
       </div>
     );

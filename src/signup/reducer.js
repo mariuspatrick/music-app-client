@@ -6,7 +6,6 @@ const initialState = {
 };
 
 export default function reducer(state = initialState, action) {
-  console.log("action.payload", action.payload);
   switch (action.type) {
     case "USER_SIGN_UP": {
       return {
@@ -18,8 +17,9 @@ export default function reducer(state = initialState, action) {
     }
     case "USER_LOGGED_OUT": {
       localStorage.setItem("jwt", "");
-      // localStorage.setItem("name", "");
-      // localStorage.setItem("id", "");
+      localStorage.setItem("name", "");
+      localStorage.setItem("id", "");
+
       return {
         ...state,
         jwt: null,

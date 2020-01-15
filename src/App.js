@@ -9,6 +9,7 @@ import Toolbar from "./components/Toolbar";
 import Search from "./components/Search";
 import CreatePLaylist from "./components/CreatePlaylist";
 import { userLoggedIn } from "./signup/actions";
+import { getUserPlaylists } from "./user_playlist/actions";
 import { connect } from "react-redux";
 
 class App extends Component {
@@ -17,7 +18,10 @@ class App extends Component {
     const name = localStorage.getItem("name");
     const id = localStorage.getItem("id");
 
-    if (jwt) this.props.dispatch(userLoggedIn(jwt, name, id));
+    if (jwt) {
+      this.props.dispatch(userLoggedIn(jwt, name, id));
+      this.props.dispatch(getUserPlaylists());
+    }
   }
   render() {
     return (
