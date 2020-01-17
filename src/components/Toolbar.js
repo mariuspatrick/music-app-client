@@ -1,15 +1,45 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { userLoggedOut } from "../signup/actions";
+import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 
 class Toolbar extends Component {
   render() {
+    const mystyle = {
+      display: "block",
+      color: "darkblue",
+      textDecoration: "none"
+    };
     return (
       <div>
-        <Link to="/login">Login</Link>
-        <p></p>
-        <Link to="/signup">Signup</Link>
-        <p></p>
+        <ButtonGroup color="primary" aria-label="outlined primary button group">
+          <Button>
+            <Link style={mystyle} to="/login">
+              Login
+            </Link>
+          </Button>
+          <Button>
+            <Link style={mystyle} to="/signup">
+              Signup
+            </Link>
+          </Button>
+          <Button>
+            <Link style={mystyle} to="/">
+              Home
+            </Link>
+          </Button>
+          <Button
+            style={{ alignItems: "left", color: "darkblue" }}
+            onClick={() => {
+              this.props.dispatch(userLoggedOut());
+              // this.props.history.push("/");
+            }}
+          >
+            Logout
+          </Button>
+        </ButtonGroup>
       </div>
     );
   }

@@ -7,41 +7,53 @@ class Checkbox extends Component {
   };
 
   toggleCheckboxChange = () => {
-    // console.log("this has been checked", this.state);
-    // const id = this.props;
+    console.log("we are here");
     this.setState(({ isChecked }) => ({
       isChecked: !isChecked
-      // idChecked: this.props.
     }));
-    // if (this.state.isChecked) {
-    //   this.setState({
-    //     idChecked: this.props.checkbox.items.map(track => {
-    //       return track.id;
-    //     })
-    //   });
-    // }
   };
 
   getTrackId = track => {
-    return track.track.id;
+    const id = track.track.id;
+    if (id === track.track.id) return track.track.id;
   };
+
+  // getTrackTitle = track = {
+
+  // }
 
   render() {
     const { id } = this.props.checkbox.items;
     const { isChecked } = this.state;
 
-    // console.log("checkbox id: ", id);
-
     return (
       <div className="checkbox">
         <label>
+          {/* <HeartCheckbox
+            checked={isChecked}
+            onClick={this.toggleCheckboxChange}
+            onChange={this.props.getTrackId}
+          /> */}
+
+          {/* <IconButton aria-label="add to favorites">
+            <FavoriteIcon
+              // type="checkbox"
+              value={id}
+              checked={isChecked}
+              onClick={this.props.getTrackId}
+              onChange={this.toggleCheckboxChange}
+            />
+          </IconButton> */}
+
           <input
+            style={{
+              webkitTransform: "scale(2)",
+              transform: "scale(2)",
+              padding: "10px"
+            }}
             type="checkbox"
             value={id}
             checked={isChecked}
-            // onClick={() =>
-            //   console.log("this is track's id: ", this.track.track.id)
-            // }
             onClick={this.props.getTrackId}
             onChange={this.toggleCheckboxChange}
           />
@@ -54,7 +66,6 @@ class Checkbox extends Component {
 }
 
 function mapStateToProps(state) {
-  // console.log("reduxState in checkbox: ", state);
   return {
     checkbox: state.tracks
   };

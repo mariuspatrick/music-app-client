@@ -1,90 +1,56 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchedPlaylist } from "../playlist/actions";
 import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
+// import { getUserPlaylists } from "../user_playlist/actions";
+import Box from "@material-ui/core/Box";
 
 class Homepage extends Component {
-  state = {
-    genre: ""
-  };
-
-  handleChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  };
-
-  handleSubmit = event => {
-    event.preventDefault();
-    const action = fetchedPlaylist(this.state.genre);
-
-    this.props.dispatch(action);
-  };
-
   render() {
-    console.log("this.props", this.props.tracks);
-    const playlists = !this.props.tracks;
+    const defaultProps = {
+      bgcolor: "gray",
+      borderColor: "transparent",
+      m: 1,
+      justifyContent: "auto",
+      border: 1,
+      style: { width: "auto", height: "auto" }
+    };
+    const auth = this.props.auth;
     return (
       <div>
-        <p></p>
-        {playlists
-          ? this.props.auth.jwt && (
-              <form onSubmit={this.handleSubmit}>
-                <p>
-                  <Link to="/playlist">
-                    <button>Create playlist</button>
-                  </Link>
-                </p>
-                Genre:
-                <p>
-                  <input
-                    type="text"
-                    name="genre"
-                    value={this.state.genre}
-                    onChange={this.handleChange}
-                  />
-                </p>
-                <Button variant="contained" color="black" disableElevation>
-                  Search
-                </Button>
-              </form>
-            )
-          : this.props.tracks.playlists.items.map(tracks => {
-              return (
-                <div
-                  style={{
-                    border: "solid 5px",
-                    // transitionProperty: "all",
-                    // transitionDuration: "3s",
-                    transition:
-                      "width 2s, height 2s, backround-color 2s, transform 2s"
-                  }}
-                  onClick={() => {
-                    this.props.history.push(`/genres/${tracks.id}`);
-                  }}
-                >
-                  <h4>{tracks.name}</h4>
-                  <p>{tracks.description}</p>
+        {auth.jwt ? (
+          <div>
+            <h2>Hello {auth.name}</h2>
 
-                  {/* Map over images array to get image for each playlist */}
-
-                  {tracks &&
-                    tracks.images.map(image => {
-                      return <img src={image.url}></img>;
-                    })}
-                </div>
-              );
-            })}
-        {/* {!playlists && (
-          <button
-            onClick={() => {
-              
-            }}
-          >
-            BIG
-          </button>
-        )} */}
+            <Button onClick={() => this.props.history.push("/playlist")}>
+              Create Playlist
+            </Button>
+            <p></p>
+            {this.props.allPlaylists && <h4>Your playlists: </h4>}
+            {this.props.allPlaylists &&
+              this.props.allPlaylists.map((playlist, index) => {
+                return (
+                  <div key={index}>
+                    <Box
+                      display="flex"
+                      justifyContent="center"
+                      onClick={() => this.props.history.push("/playlists")}
+                    >
+                      <Box borderRadius={10} {...defaultProps}>
+                        <Button>{playlist.name}</Button>
+                      </Box>
+                    </Box>
+                  </div>
+                );
+              })}
+          </div>
+        ) : (
+          <div>
+            <h2>Login to search for songs</h2>
+            <Button onClick={() => this.props.history.push("/login")}>
+              Log In
+            </Button>
+          </div>
+        )}
       </div>
     );
   }
@@ -92,7 +58,7 @@ class Homepage extends Component {
 
 function mapStateToProps(state) {
   return {
-    tracks: state.playlist,
+    allPlaylists: state.userPlaylists.allUsersPlaylists,
     auth: state.auth
   };
 }

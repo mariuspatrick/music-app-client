@@ -6,9 +6,23 @@ import Tracks from "./components/Tracks";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Toolbar from "./components/Toolbar";
+import Search from "./components/Search";
 import CreatePLaylist from "./components/CreatePlaylist";
+import { userLoggedIn } from "./signup/actions";
+import { getUserPlaylists } from "./user_playlist/actions";
+import { connect } from "react-redux";
 
 class App extends Component {
+  componentDidMount() {
+    const jwt = localStorage.getItem("jwt");
+    const name = localStorage.getItem("name");
+    const id = localStorage.getItem("id");
+
+    if (jwt) {
+      this.props.dispatch(userLoggedIn(jwt, name, id));
+      this.props.dispatch(getUserPlaylists());
+    }
+  }
   render() {
     return (
       <div className="App">
@@ -16,6 +30,7 @@ class App extends Component {
         <Switch>
           <header className="App-header">
             <Route exact path="/" component={Homepage} />
+            <Route exact path="/playlists" component={Search} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/playlist" component={CreatePLaylist} />
@@ -27,4 +42,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect()(App);
