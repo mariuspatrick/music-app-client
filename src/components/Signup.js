@@ -30,7 +30,7 @@ class Signup extends Component {
         <div>
           <h1>Welcome {this.props.data.name}!</h1>
           <h4>
-            Click to go to homepage:
+            Go to homepage:
             <p></p>
             <Button onClick={() => this.props.history.push("/")}>Home</Button>
           </h4>
@@ -43,6 +43,7 @@ class Signup extends Component {
         <div>
           <form onSubmit={this.handleSubmit}>
             <TextField
+              // autoComplete="off"
               id="signupField"
               name="email"
               label="E-mail"

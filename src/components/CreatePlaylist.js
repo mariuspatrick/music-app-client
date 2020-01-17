@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createNewPlaylist } from "../user_playlist/actions";
 import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
 class CreatePlaylist extends Component {
   state = {
@@ -15,26 +16,28 @@ class CreatePlaylist extends Component {
   };
 
   handleSubmit = event => {
-    event.preventDefault();
+    // event.preventDefault();
     const jwt = this.props.auth.jwt;
 
     const action = createNewPlaylist(this.state.playlistName, jwt);
 
     this.props.dispatch(action);
+    this.props.history.push("/");
   };
 
   render() {
-    console.log("props in createPlaylist", this.props.playlist);
     // const playlist = !this.props.playlist;
     return (
       <div>
-        <h2>Create your playlist: </h2>
         <form onSubmit={this.handleSubmit}>
-          Pick a name:
+          Pick a name for your playlist:
           <p></p>
-          <input
-            type="text"
+          <TextField
+            // autoComplete="off"
+            id="playlist-text"
             name="playlistName"
+            label="Playlist"
+            variant="outlined"
             value={this.state.playlistName}
             onChange={this.handleChange}
           />

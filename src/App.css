@@ -14,9 +14,12 @@
   }
 }
 
+h2 {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
 .App-header {
   background-image: url("https://images.pexels.com/photos/6319/smartphone-vintage-technology-music.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
-  background-color: white;
   image-resolution: 720dpi;
   min-height: 100vh;
   /* max-width: 10000px; */
@@ -25,7 +28,7 @@
   /* align-items: center; */
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: black;
 }
 
 .App-link {

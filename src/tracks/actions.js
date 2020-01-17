@@ -22,18 +22,36 @@ function sendNewTracks(data) {
   };
 }
 
-export function sendTracks(trackId, jwt) {
+export function sendTracks(tracksIdArray, jwt) {
   return function thunk(dispatch, getState) {
-    api(`/tracks/:playlistId`, {
-      method: "POST",
-      body: {
-        trackId
-      },
-      jwt
-    })
-      .then(tracks => {
-        dispatch(sendNewTracks(tracks));
+    tracksIdArray.forEach(trackId => {
+      api(`/tracks`, {
+        method: "POST",
+        body: {
+          trackId
+        },
+        jwt
       })
-      .catch(err => console.error(err));
+        .then(
+          dispatch(sendNewTracks(trackId))
+          // tracksIdArray.forEach(trackId => {
+          // })
+        )
+        .then(getUserTracks(trackId))
+        .catch(err => console.error(err));
+    });
+  };
+}
+
+export function getNewTracks(track) {
+  return function thunk(dispatch, getState) {
+    api("/tracks").then(dispatch(getUserTracks(track)));
+  };
+}
+
+function getUserTracks(track) {
+  return {
+    type: "GET_TRACKS",
+    payload: track
   };
 }

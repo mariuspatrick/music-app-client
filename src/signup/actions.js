@@ -50,8 +50,12 @@ export function signUp(email, name, password) {
       }
     })
       .then(data => {
+        localStorage.setItem("jwt", data.jwt);
+        localStorage.setItem("name", data.name);
+        localStorage.setItem("id", data.id);
         const action = signUpSuccess(data.jwt, data.name, data.email, data.id);
         dispatch(action);
+        dispatch(userLoggedIn(data.jwt, data.name, data.id));
       })
       .catch(err => console.log("err", err));
   };

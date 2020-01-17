@@ -32,7 +32,10 @@ class Toolbar extends Component {
           </Button>
           <Button
             style={{ alignItems: "left", color: "darkblue" }}
-            onClick={() => this.props.dispatch(userLoggedOut())}
+            onClick={() => {
+              this.props.dispatch(userLoggedOut());
+              // this.props.history.push("/");
+            }}
           >
             Logout
           </Button>

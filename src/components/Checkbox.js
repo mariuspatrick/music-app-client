@@ -7,14 +7,20 @@ class Checkbox extends Component {
   };
 
   toggleCheckboxChange = () => {
+    console.log("we are here");
     this.setState(({ isChecked }) => ({
       isChecked: !isChecked
     }));
   };
 
   getTrackId = track => {
-    return track.track.id;
+    const id = track.track.id;
+    if (id === track.track.id) return track.track.id;
   };
+
+  // getTrackTitle = track = {
+
+  // }
 
   render() {
     const { id } = this.props.checkbox.items;
@@ -23,7 +29,28 @@ class Checkbox extends Component {
     return (
       <div className="checkbox">
         <label>
+          {/* <HeartCheckbox
+            checked={isChecked}
+            onClick={this.toggleCheckboxChange}
+            onChange={this.props.getTrackId}
+          /> */}
+
+          {/* <IconButton aria-label="add to favorites">
+            <FavoriteIcon
+              // type="checkbox"
+              value={id}
+              checked={isChecked}
+              onClick={this.props.getTrackId}
+              onChange={this.toggleCheckboxChange}
+            />
+          </IconButton> */}
+
           <input
+            style={{
+              webkitTransform: "scale(2)",
+              transform: "scale(2)",
+              padding: "10px"
+            }}
             type="checkbox"
             value={id}
             checked={isChecked}
