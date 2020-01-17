@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
-// import { getUserPlaylists } from "../user_playlist/actions";
 import Box from "@material-ui/core/Box";
 
 class Homepage extends Component {

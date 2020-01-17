@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import { fetchedTracks } from "../tracks/actions";
 import CheckBox from "./Checkbox";
 import { sendTracks } from "../tracks/actions";
-// import Button from "@material-ui/core/Button";
-// import Card from "@material-ui/core/Card";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import IconButton from "@material-ui/core/IconButton";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -28,9 +26,8 @@ class Tracks extends Component {
     const id = track.track.id;
     const name = track.track.name;
 
-    console.log("super butt", this.state);
-
     if (!this.state.playlistTracks.includes(id)) {
+      //Gets tracks id and name and stores them in the state
       this.state.playlistTracks.push(id);
       this.state.playlistNames.push(name);
     }
@@ -63,12 +60,10 @@ class Tracks extends Component {
                     color: "black",
                     borderRadius: "50px",
                     textAlign: "center"
-                    // boxShadow: "2px 2px 3px #999"
                   }}
                   aria-label="recipe"
                   className="icon"
                   onClick={() => {
-                    // const trackId = this.state.playlistTracks.map(id => id);
                     this.props.dispatch(
                       sendTracks(this.state.playlistTracks, this.props.auth.jwt)
                     );
@@ -82,7 +77,7 @@ class Tracks extends Component {
                       <MoreVertIcon />
                     </IconButton>
                   }
-                  // title="Shrimp and Chorizo Paella"
+                  // title=""
                 />
                 <CardMedia className="image" image="" title="songs" />
                 <CardContent style={{ border: "2px solid" }}>
@@ -103,38 +98,11 @@ class Tracks extends Component {
                   {track.track && (
                     <CheckBox getTrackId={() => this.trackId(track)} />
                   )}
-                  {/* <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
-                  </IconButton> */}
                 </CardContent>
               </div>
-              // <div
-              //   key={index}
-              //   style={{ border: "2px solid", borderRadius: "25px" }}
-              // >
-              //   <h4>{sortTracks(track)}</h4>
-              //   <h5>
-              //     {track.track &&
-              //       track.track.artists.map(artist => {
-              //         return artist.name;
-              //       })}
-              //   </h5>
-              //   {track.track && (
-              //     <CheckBox getTrackId={() => this.trackId(track)} />
-              //   )}
-              // </div>
             );
           })
         )}
-        {/* <Button
-          onClick={() => {
-            this.props.dispatch(
-              sendTracks(this.state.playlistTracks, this.props.auth.jwt)
-            );
-          }}
-        >
-          Add
-        </Button> */}
       </div>
     );
   }

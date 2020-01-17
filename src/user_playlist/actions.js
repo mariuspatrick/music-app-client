@@ -1,7 +1,6 @@
 import api from "../api";
 
 function newPlaylist(playlistId) {
-  // console.log("playlistId in actions: ", playlistId);
   return {
     type: "CREATE_USER_PLAYLIST",
     payload: playlistId
@@ -25,7 +24,6 @@ export function createNewPlaylist(name, jwt) {
 }
 
 function saveUserPlaylists(playlists) {
-  // console.log("playlist name", playlistName);
   return {
     type: "SAVE_USER_PLAYLISTS",
     payload: playlists

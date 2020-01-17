@@ -6,7 +6,6 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import Typography from "@material-ui/core/Typography";
-// import Avatar from "@material-ui/core/Avatar";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import IconButton from "@material-ui/core/IconButton";
 import TextField from "@material-ui/core/TextField";
@@ -30,9 +29,7 @@ class Search extends Component {
     this.props.dispatch(action);
   };
   componentDidMount() {
-    // console.log("this.props in Search js", this.props);
     this.props.dispatch(getNewTracks);
-    console.log("butt supreme", this.props);
   }
   render() {
     const playlists = !this.props.tracks;
@@ -40,7 +37,6 @@ class Search extends Component {
       <div>
         {playlists ? (
           <form onSubmit={this.handleSubmit}>
-            {/* <p> */}
             <TextField
               id="genreText"
               name="genre"
@@ -48,13 +44,6 @@ class Search extends Component {
               value={this.state.genre}
               onChange={this.handleChange}
             />
-            {/* <input
-                type="text"
-                name="genre"
-                value={this.state.genre}
-                onChange={this.handleChange}
-              /> */}
-            {/* </p> */}
             <Button
               onClick={this.handleSubmit}
               style={{ color: "white" }}

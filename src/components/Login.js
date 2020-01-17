@@ -23,13 +23,6 @@ class LoginPage extends React.Component {
   };
 
   render() {
-    // const mystyle = {
-    //   margin: "auto",
-    //   width: "50%",
-    //   border: "3px solid green",
-    //   padding: "10px"
-    // };
-    // console.log("these are props in login: ", this.props);
     if (this.props.data.jwt && this.props.data.id) {
       return (
         <div>
@@ -66,15 +59,11 @@ class LoginPage extends React.Component {
             onChange={this.handleChange}
           />
           <p>
-            {/* <button type="submit">Login</button> */}
             <Button variant="contained" type="submit">
               Login
             </Button>
           </p>
         </form>
-        <div>
-          <nav>{/* Don't have an account? */}</nav>
-        </div>
       </div>
     );
   }

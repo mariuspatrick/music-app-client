@@ -22,7 +22,6 @@ export default function reducer(state = initialState, action) {
         currentPlaylist: action.payload //playlistId
       };
     case "SET_SONGS_FOR_CURRENT_PLAYLIST":
-      // console.log("action payload in reducer.js: ", action.payload);
       return {
         ...state,
         songsForPlaylist: action.payload //playlistId

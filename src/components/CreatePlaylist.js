@@ -15,8 +15,7 @@ class CreatePlaylist extends Component {
     });
   };
 
-  handleSubmit = event => {
-    // event.preventDefault();
+  handleSubmit = () => {
     const jwt = this.props.auth.jwt;
 
     const action = createNewPlaylist(this.state.playlistName, jwt);
@@ -26,14 +25,12 @@ class CreatePlaylist extends Component {
   };
 
   render() {
-    // const playlist = !this.props.playlist;
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
           Pick a name for your playlist:
           <p></p>
           <TextField
-            // autoComplete="off"
             id="playlist-text"
             name="playlistName"
             label="Playlist"
@@ -44,9 +41,6 @@ class CreatePlaylist extends Component {
           <p></p>
           <Button type="submit">Create</Button>
         </form>
-        {/* <Button onClick={() => this.props.dispatch(getUserPlaylists())}>
-          Show playlist
-        </Button> */}
       </div>
     );
   }
