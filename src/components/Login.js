@@ -12,7 +12,7 @@ class LoginPage extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log("this.props.data.jwt in login:", this.props.data);
+
     this.props.dispatch(login(this.state.email, this.state.password));
   };
 
